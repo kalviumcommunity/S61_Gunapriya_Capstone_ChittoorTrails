@@ -7,7 +7,7 @@ const PORT = 4001;
 
 // Route for the root endpoint
 app.get('/', (req, res) => {
-  res.send('ASAP Project - Endpoint!');
+  res.send('Project - Endpoint!');
 });
 
 // Route for the /ping endpoint
