@@ -1,9 +1,13 @@
 const express = require('express');
 const mongoose =require("mongoose")
+const bodyParser = require('body-parser');
 const connectDB=require("./config/db")
 connectDB()
+const placeRoute=require('./Routes/MainRoute');
+const userRoute=require('./Routes/UserRoute')
 const app = express();
 const PORT = 4001;
+app.use(bodyParser.json());
 
 // Route for the root endpoint
 app.get('/', (req, res) => {
@@ -15,12 +19,15 @@ app.get('/ping', (req, res) => {
   res.send('Pong!');
 });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+app.use((req, res, next) => {
+  console.log('Request Body:', req.body);
+  next();
 });
 
+
+
+app.use('/api', placeRoute);
+app.use('/user',userRoute);
 
 
 mongoose.connection.once('open', () => {
