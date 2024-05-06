@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const connectDB=require("./config/db")
 connectDB()
 const placeRoute=require('./Routes/MainRoute');
-const userRoute=require('./Routes/UserRoute')
+// const userRoute=require('./Routes/UserRoute')
+const UserRoute=require('./Users/UserRoutes');
 const app = express();
 const PORT = 4001;
 app.use(bodyParser.json());
@@ -27,7 +28,8 @@ app.use((req, res, next) => {
 
 
 app.use('/api', placeRoute);
-app.use('/user',userRoute);
+// app.use('/user',userRoute);
+app.use('/users',UserRoute);
 
 
 mongoose.connection.once('open', () => {
