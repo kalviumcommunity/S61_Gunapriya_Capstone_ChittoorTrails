@@ -28,4 +28,16 @@ UserRoute.post('/create', async (req, res) => {
     }
 });
 
+UserRoute.put('/update/:id', async (req, res) => {
+    const userId = req.params.id;
+    const { username, password } = req.body;
+    try {
+        const updatedUser = await User.findByIdAndUpdate(userId, { username, password }, { new: true });
+        res.status(200).send({ message: "User updated successfully", user: updatedUser });
+    } catch (error) {
+        console.error("Error updating user", error);
+        res.status(500).json({ errMsg: "Error updating user", error });
+    }
+});
+
 module.exports = UserRoute;
