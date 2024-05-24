@@ -1,0 +1,44 @@
+/* NavBar.css */
+
+.header {
+    background-color: white; /* Change this to your desired background color */
+    color: black; /* Change this to your desired text color */
+    padding: 10px 0;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav__logo {
+    font-size: 30px; 
+    text-decoration: none;
+    color: inherit; 
+  }
+  
+  .nav__menu {
+    display: flex;
+  }
+  
+  .nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav__item {
+    margin-right: 15px; 
+  }
+  
+  .nav__link {
+    text-decoration: none;
+    color: inherit; 
+  }
+  
+  /* .nav__link:hover {
+    text-decoration: underline; 
+  }
+   */

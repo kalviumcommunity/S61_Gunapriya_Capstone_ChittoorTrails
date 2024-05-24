@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose =require("mongoose")
 const bodyParser = require('body-parser');
+const cors=require('cors');
 const connectDB=require("./config/db")
 connectDB()
 const placeRoute=require('./Routes/MainRoute');
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
   res.send('Project - Endpoint!');
 });
+app.use(cors());
 
 // Route for the /ping endpoint
 app.get('/ping', (req, res) => {

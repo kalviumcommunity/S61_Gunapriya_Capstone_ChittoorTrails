@@ -1,14 +1,27 @@
-import './App.css'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+// import Navbar from './Components/NavBar';
+// import About from './Components/About';
+// import Signin from './Components/Signin';
+// import Homepage from './Components/Homepage';
+// import Signup from './Components/Signup';
+// import MainPage from './Components/MainPage';
+// import Editpost from './Components/Editpost';
+import  Addpost from './Components/Addpost';
 
 function App() {
-  
-
   return (
-    <>
-      <h1>Hello Chittoor!</h1>
-      <p>Welcome to Chittoor Trails - your ultimate guide to exploring the scenic trails, historical routes, and cultural landmarks of the enchanting Chittoor district.</p>
-    </>
-  )
+    <div>
+      {/* <Navbar /> */}
+      {/* <About/> */}
+      {/* <Signin/> */}
+      <Homepage/>
+      {/* <Signup/> */}
+      {/* <MainPage/> */}
+      {/* <Editpost/> */}
+      {/* <Addpost/> */}
+    </div>
+  );
 }
 
-export default App
+export default App;
