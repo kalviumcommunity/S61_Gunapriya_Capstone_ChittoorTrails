@@ -1,0 +1,17 @@
+meta {
+  name: Testing
+  type: http
+  seq: 1
+}
+
+put {
+  url: http://localhost:4001/users/update/66336402e328a3aab0d3cb7c
+  body: json
+  auth: none
+}
+
+body:json {
+  {"username": "riyareddy",
+  "password": "password123"
+  }
+}

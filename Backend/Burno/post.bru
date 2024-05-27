@@ -1,0 +1,22 @@
+meta {
+  name: post
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:4001/api/create
+  body: json
+  auth: none
+}
+
+body:json {
+   {"name": "Tada Falls",
+        "location": "Located in the Eastern Ghats, in the Chittoor district of Andhra Pradesh state, southeast India.",
+        "description": "Tada Falls, also called Ubbalamudugu Falls, is a stunning waterfall in the Chittoor region of India, not far from the Tricity and Oneness Temple. The waterfall is a sight to behold, as it cascades down the rocks from a height of around 100 meters.",
+        "type": "Waterfall",
+        "ratings": 5,
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM5YFtPSHYuUvXqq51hQIq2ii_HU2G7F-0vA&s",
+        "openingHours": "8:00 AM - 4:00 PM"
+   }
+}
