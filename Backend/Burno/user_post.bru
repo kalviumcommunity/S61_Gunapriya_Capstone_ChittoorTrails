@@ -1,0 +1,17 @@
+meta {
+  name: user_post
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:4001/users/create
+  body: json
+  auth: none
+}
+
+body:json {
+   {"username": "riya_reddy",
+   "password": "password123"
+   }
+}
