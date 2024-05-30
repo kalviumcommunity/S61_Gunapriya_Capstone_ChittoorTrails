@@ -1,14 +1,13 @@
 import React from 'react'
 import './About.css';
-import logo from '../assets/logo.png';
 
 export default function About() {
   return (
     <div>
   
     <div className="about-container">
-    <img src={logo} alt="" />
-    <h2>ABOUT US</h2>
+      <div>
+    <h2 className='about_name'>ABOUT US</h2>
      
     <div className="about-content">
       <p>Explore a diverse range of travel options seamlessly with our user-friendly interface.
@@ -34,6 +33,7 @@ Discover the enchanting allure of Chittoor Trails through our About page, where 
          adventure and uncover the treasures that await in the captivating realm of Chittoor Trails.
       </p>
       </div>
+    </div>
     </div>
     </div>
     

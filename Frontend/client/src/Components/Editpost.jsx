@@ -1,22 +1,17 @@
-import React from 'react'
-import "./Editpost.css"
-import  { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import './Editpost.css'; 
+import { Link } from 'react-router-dom';
 
-export default function Editpost({ postId }) {
+export default function EditPostPage() {
   const [formData, setFormData] = useState({
     name: '',
     location: '',
     description: '',
     type: '',
-    ratings: 0,
+    ratings: '',
     imageUrl: '',
     openingHours: ''
   });
-
-  useEffect(() => {
-    // Fetch post data based on postId
-    // Populate form data with fetched data
-  }, [postId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,30 +23,55 @@ export default function Editpost({ postId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send updated post data to the server
+    // Handle form submission logic here (e.g., send data to backend)
+    console.log(formData);
+    // Reset form data after submission
+    setFormData({
+      name: '',
+      location: '',
+      description: '',
+      type: '',
+      ratings: '',
+      imageUrl: '',
+      openingHours: ''
+    });
   };
 
   return (
-    <>
-     <div className="container_editform">
-      {/* <div className="image-container">
-        <img src="../src/assets/Editbackground.jpeg" alt="Image for login" />
-      </div> */}
+    <div className="edit-post-container">
       <div className="form-container">
         <h2>Edit Post</h2>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-
-          <label htmlFor="location">Location:</label>
-          <input type="text" id="location" name="location" value={formData.location} onChange={handleChange} required />
-
-          <label htmlFor="description">Description:</label>
-          <textarea id="description" name="description" value={formData.description} onChange={handleChange} required></textarea>
-
-          <label htmlFor="type">Type:</label>
-          <select id="type" name="type" value={formData.type} onChange={handleChange} required>
-            <option value="">Select type</option>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Name"
+            className="form-input"
+          />
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            placeholder="Location"
+            className="form-input"
+          />
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Description"
+            className="form-textarea"
+          />
+          <select
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            className="form-select"
+          >
+            <option value="">Select Type</option>
             <option value="Hill">Hill</option>
             <option value="Waterfall">Waterfall</option>
             <option value="Hotel">Hotel</option>
@@ -60,20 +80,34 @@ export default function Editpost({ postId }) {
             <option value="Forest">Forest</option>
             <option value="Others">Others</option>
           </select>
-
-          <label htmlFor="ratings">Ratings:</label>
-          <input type="number" id="ratings" name="ratings" value={formData.ratings} onChange={handleChange} required />
-
-          <label htmlFor="imageUrl">Image URL:</label>
-          <input type="text" id="imageUrl" name="imageUrl" value={formData.imageUrl} onChange={handleChange} required />
-
-          <label htmlFor="openingHours">Opening Hours:</label>
-          <input type="text" id="openingHours" name="openingHours" value={formData.openingHours} onChange={handleChange} required />
-
-          <button type="submit">Save Changes</button>
+          <input
+            type="number"
+            name="ratings"
+            value={formData.ratings}
+            onChange={handleChange}
+            placeholder="Ratings"
+            className="form-input"
+          />
+          <input
+            type="text"
+            name="imageUrl"
+            value={formData.imageUrl}
+            onChange={handleChange}
+            placeholder="Image URL"
+            className="form-input"
+          />
+          <input
+            type="text"
+            name="openingHours"
+            value={formData.openingHours}
+            onChange={handleChange}
+            placeholder="Opening Hours"
+            className="form-input"
+          />
+          <Link to='/profile'><button type="submit" className="edit-button">Edit</button></Link>
+           <Link to='/profile'><button type="submit" className="delete-button">Delete</button></Link>          
         </form>
       </div>
     </div>
-    </>
-  )
+  );
 }

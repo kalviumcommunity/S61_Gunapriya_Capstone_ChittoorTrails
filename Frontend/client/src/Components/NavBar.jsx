@@ -1,39 +1,27 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import logo from "../../src/assets/logo.png";
-import './NavBar.css';
-// import About from "./About";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import "./NavBar.css";
 
-const Navbar = () => {
+export default function NavBar() {
+  const location = useLocation();
+  
   return (
-    <header className="header">
-      <nav className="nav container">
-        <NavLink to="/" className="nav__logo">
-          <img src={logo} className="nav__logo"/>
-        </NavLink>
-
-        <div className={"nav__menu"} id="nav-menu">
-          <ul className="nav__list">
-            <li className="nav__item">
-              <NavLink to="/About" className="nav__link">
-                About
-              </NavLink>
-            </li>
-            <li className="nav__item">
-              <NavLink to="/signin" className="nav__link">
-                Sign In
-              </NavLink>
-            </li>
-            <li className="nav__item">
-              <NavLink to="/signup" className="nav__link">
-                Sign Up
-              </NavLink>
-            </li>
-          </ul>    
+    <div className='main_navbar'>
+      <nav className="navbar">
+        <div className="navbar-container">
+          <Link to='/'><img className="logo_home" src="../assets/logo.png" alt="Logo" /></Link>
+          
+          <div className="nav-links">
+            <Link to="/about">About</Link>
+            {location.pathname !== '/main' && location.pathname!=='/profile' && location.pathname!=='/addpost' && location.pathname!=='/editpost' && location.pathname!='/logout' &&(
+              <>
+                <Link to="/signup">Sign Up</Link>
+                <Link to="/signin">Sign In</Link>
+              </>
+            )}
+          </div>
         </div>
       </nav>
-    </header>
+    </div>
   );
-};
-
-export default Navbar;
+}
