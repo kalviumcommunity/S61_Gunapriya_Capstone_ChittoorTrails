@@ -10,16 +10,8 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-.main_signin {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding-top: 60px; 
-  background-color: #0077b6;
-}
 
-.container_signin {
+.container_logout {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,23 +21,20 @@ body {
   overflow: hidden;
   max-width: 900px;
   width: 100%;
+  margin-bottom: 20px;
 }
 
-.image-container_signin {
-  flex: 1;
+.main_logout {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eef1f5;
+  min-height: 100vh;
+  padding-top: 120px;
+  padding-bottom: 20px;
+  background-color: #0077b6;
 }
 
-.image_signin {
-  width: 100%;
-  height: auto;
-  max-height: 400px;
-}
-
-.form-container_signin {
+.form-container_logout {
   flex: 1;
   padding: 40px;
   display: flex;
@@ -53,30 +42,12 @@ body {
   justify-content: center;
 }
 
-.singin{
+.logout {
   margin-bottom: 20px;
   color: #333;
 }
 
-.form-group_signin {
-  margin-bottom: 15px;
-}
-
-.form-group_signin label {
-  display: block;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.form-group_signin input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1em;
-}
-
-.button_signin {
+.button_logout {
   width: 100%;
   padding: 10px;
   background-color: #ff6347;
@@ -89,18 +60,21 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.button_signin:hover {
+.button_logout:hover {
   background-color: #ff4500;
 }
 
-.link_signin {
-  color: #ff6347;
-  text-decoration: none;
-  margin-top: 15px;
-  display: inline-block;
+.image-logout-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.link_signin:hover {
-  text-decoration: underline;
+.image_logout {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-

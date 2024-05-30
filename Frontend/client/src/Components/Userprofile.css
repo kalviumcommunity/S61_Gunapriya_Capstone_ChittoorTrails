@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .profile_main_container{
+    background-color: #a3cef1; 
+    min-height: 100vh;
+    padding-top: 60px;
+  }
+  
+
+.profile-container {
+    height: 300px;
+    max-width: 800px;
+    margin: 90px auto;
+    border-radius: 30px; 
+    background-color: white;
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .username {
+    margin-left: 10px;
+    font-weight: bold;
+  }
+  
+  .settings-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: auto;
+    cursor: pointer;
+    border: 3px solid black;
+  }
+  
+  .options {
+    background-color: #fff;
+    position: absolute;
+    top: 105px;
+    right: 90px;
+    width: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .options li a {
+    text-decoration: none; 
+    color: inherit;
+    display: block; 
+    padding: 10px; 
+  }
+  
+  .options li a:hover {
+    background-color: #f5f5f5; 
+  }
+  
+  
+  .options li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .options li:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .profile-content {
+    padding: 20px;
+  }
+  
+  .like-dislike-container {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .like-count, .dislike-count {
+    margin-right: 20px;
+    margin-top: 20px;
+  }
+  
+  .button-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .other-page-link {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .other-page-link:hover {
+    background-color: #0056b3;
+  }
+  
+  

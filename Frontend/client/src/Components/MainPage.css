@@ -1,67 +1,95 @@
-/* MainPage.css */
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
-  
-  body {
-    display: flex;
-    height: 100vh;
-    margin: 0;
-    background-color: #CCD6D4;
-  }
-  
-  .main-page {
-    display: flex;
-    width: 100%;
-  }
-  
-  .sidebar {
-    width: 200px;
-    /* background: linear-gradient(45deg, #333, #555); */
-    background:#283a2C;
-    color: white;
-    padding: 20px;
-    margin-right: 100px;
-    height: 100vh; 
-    position: fixed; 
-    left: 0;
-    top: 0; 
-    overflow-y: auto;
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    margin-bottom: 20px;
-  }
-  
-  .sidebar a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2em;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    display: block;
-    padding: 10px;
-    margin-top: 33px;
-    margin-left: 23px;
-    border-radius: 5px;
-  }
-  
-  .sidebar a:hover {
-    color: #ff6347;
-    background-color: rgba(255, 99, 71, 0.2);
-  }
-  
-  .content {
-    flex: 1;
-    padding: 10px;
-    margin-left: 200px; /* Adjust content margin to account for fixed sidebar */
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #CCD6D4;
+}
+
+.main-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  margin-top: 60px;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 10px 20px;
+  position: relative;
+  bottom: 57px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #000;
+}
+
+.content {
+  max-width: 800px;
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-filter-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-input, .filter-select {
+  width: 48%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.places-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.place-info {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.place-name {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
+
+.place-location,
+.place-description,
+.place-type,
+.place-ratings {
+  margin-bottom: 5px;
+  font-size: 1em;
+  color: #555;
+}
+
+.place-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}

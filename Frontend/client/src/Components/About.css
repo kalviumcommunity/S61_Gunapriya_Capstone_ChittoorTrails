@@ -1,21 +1,40 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .about-container {
-    background-image: url('../assets/about.jpg'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 119.5px;
-    margin: 0;
-  }
-  
-  .about-content {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
+  background: url('../assets/about.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 80px 20px; 
+  text-align: center;
+}
+
+.about_name {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #555;
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.553);
+}
+
+
