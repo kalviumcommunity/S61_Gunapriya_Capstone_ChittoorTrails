@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Signup.css';
 
 export default function Signup() {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
-    }
-    console.log('Email:', email);
-    console.log('Password:', password);
 
-    // Simulate successful sign-up and navigate to the main page
-    navigate('/main'); // Replace '/mainpage' with the route to your main page
+    try {
+      // Send user data to server for registration
+      const response = await axios.post('http://localhost:4001/users/create', {
+        username,
+        email,
+        password
+      });
+      console.log('Response:', response.data);
+      navigate('/main'); // Redirect to the main page upon successful registration
+    } catch (error) {
+      console.error('Error:', error.response.data);
+      alert(error.response.data);
+    }
   };
 
   return (
@@ -32,6 +37,15 @@ export default function Signup() {
           <div className="signup-form-container">
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
+              <div className="signup-form-group">
+                <label>Username:</label>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
               <div className="signup-form-group">
                 <label>Email:</label>
                 <input
@@ -47,15 +61,6 @@ export default function Signup() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="signup-form-group">
-                <label>Confirm Password:</label>
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                 />
               </div>
