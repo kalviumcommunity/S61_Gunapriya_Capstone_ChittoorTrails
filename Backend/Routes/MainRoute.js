@@ -1,10 +1,10 @@
 const express = require('express');
-const { Place } = require('../Schema');
-const { Router } = require('express');
+const { Place } = require('./Schema');
 const placeRoute = express.Router();
 
 placeRoute.use(express.json());
 
+// Get all places
 placeRoute.get('/read', async (req, res) => {
     try {
         const data = await Place.find();
@@ -15,6 +15,7 @@ placeRoute.get('/read', async (req, res) => {
     }
 });
 
+// Create a new place
 placeRoute.post('/create', async (req, res) => {
     try {
         const newPlaceData = await Place.create(req.body);
@@ -26,6 +27,34 @@ placeRoute.post('/create', async (req, res) => {
             console.error("Error creating place data", error);
             res.status(500).json({ error: "Internal server error" });
         }
+    }
+});
+
+// Delete a place
+placeRoute.delete('/delete/:id', async (req, res) => {
+    try {
+        const deletedPlace = await Place.findByIdAndDelete(req.params.id);
+        if (!deletedPlace) {
+            return res.status(404).json({ error: "Place not found" });
+        }
+        res.status(200).json({ message: "Place deleted successfully", deletedPlace });
+    } catch (error) {
+        console.error("Error deleting place", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// Update a place
+placeRoute.put('/update/:id', async (req, res) => {
+    try {
+        const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedPlace) {
+            return res.status(404).json({ error: "Place not found" });
+        }
+        res.status(200).json({ message: "Place updated successfully", updatedPlace });
+    } catch (error) {
+        console.error("Error updating place", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 

@@ -33,8 +33,8 @@
 }
 
 .edit-button,
-.delete-button {
-  width: calc(50% - 5px); /* Adjusted button width for two buttons with a small space between them */
+.cancel-button {
+  width: calc(50% - 5px); 
   padding: 10px;
   background-color: #007bff;
   color: #fff;
@@ -45,7 +45,7 @@
 }
 
 .edit-button:hover,
-.delete-button:hover {
+.cancel-button:hover {
   background-color: #0056b3;
 }
 

@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Editpost.css'; 
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate,Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function EditPostPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { place } = location.state;
+
   const [formData, setFormData] = useState({
     name: '',
     location: '',
@@ -12,6 +17,20 @@ export default function EditPostPage() {
     imageUrl: '',
     openingHours: ''
   });
+
+  useEffect(() => {
+    if (place) {
+      setFormData({
+        name: place.name,
+        location: place.location,
+        description: place.description,
+        type: place.type,
+        ratings: place.ratings,
+        imageUrl: place.imageUrl,
+        openingHours: place.openingHours
+      });
+    }
+  }, [place]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,18 +42,14 @@ export default function EditPostPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., send data to backend)
-    console.log(formData);
-    // Reset form data after submission
-    setFormData({
-      name: '',
-      location: '',
-      description: '',
-      type: '',
-      ratings: '',
-      imageUrl: '',
-      openingHours: ''
-    });
+    axios.put(`http://localhost:4001/api/update/${place._id}`, formData)
+      .then(response => {
+        console.log('Place updated:', response.data);
+        navigate('/profile');
+      })
+      .catch(error => {
+        console.error('Error updating place:', error);
+      });
   };
 
   return (
@@ -104,8 +119,8 @@ export default function EditPostPage() {
             placeholder="Opening Hours"
             className="form-input"
           />
-          <Link to='/profile'><button type="submit" className="edit-button">Edit</button></Link>
-           <Link to='/profile'><button type="submit" className="delete-button">Delete</button></Link>          
+          <button type="submit" className="edit-button">Save Changes</button>
+          <Link to='/profile'><button type="button" className="cancel-button">Cancel</button></Link>          
         </form>
       </div>
     </div>
