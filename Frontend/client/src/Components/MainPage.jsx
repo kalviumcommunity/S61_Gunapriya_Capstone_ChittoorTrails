@@ -60,6 +60,7 @@ export default function MainPage() {
           >
             <option value="">All</option>
             <option value="Waterfall">Waterfall</option>
+            <option value="Waterfall">Hill</option>
             <option value="Hotel">Hotel</option>
             <option value="Fort">Fort</option>
             <option value="Temple">Temple</option>

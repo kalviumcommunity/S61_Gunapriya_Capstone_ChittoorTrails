@@ -4,17 +4,13 @@ meta {
   seq: 5
 }
 
-post {
-  url: http://localhost:4001/users/create
+get {
+  url: http://localhost:4001/api/read
   body: json
   auth: none
 }
 
 body:json {
-  {
-    "username": "riya03",
-    "email": "vinnni90@gmail.com",
-    "password": "vinnni1234"
-  }
+  
   
 }

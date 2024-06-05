@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AddPostPage() {
   const navigate = useNavigate();
+  const [popupMsg, setPopupMsg] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -23,22 +24,47 @@ export default function AddPostPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic 
-    console.log(formData);
-    // Navigate to main page
-    navigate('/profile');
-    // Reset form data after submission
-    setFormData({
-      name: '',
-      location: '',
-      description: '',
-      type: '',
-      ratings: '',
-      imageUrl: '',
-      openingHours: ''
-    });
+
+    try {
+      const response = await fetch('http://localhost:4001/api/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        // Reset form data after successful submission
+        setFormData({
+          name: '',
+          location: '',
+          description: '',
+          type: '',
+          ratings: '',
+          imageUrl: '',
+          openingHours: ''
+        });
+
+        // Set success message
+        setPopupMsg('Post added successfully');
+
+        // Navigate to main page after 2 seconds
+        setTimeout(() => {
+          navigate('/profile');
+        }, 2000);
+      } else {
+        console.error('Failed to add post:', response.statusText);
+        // Set error message
+        setPopupMsg('Failed to add post');
+      }
+    } catch (error) {
+      console.error('Error adding post:', error.message);
+      // Set error message
+      setPopupMsg('Error adding post');
+    }
   };
 
   return (
@@ -111,7 +137,17 @@ export default function AddPostPage() {
           />
           <button type="submit" className="submit-button">Submit</button>
         </form>
+        {popupMsg && <Popup message={popupMsg} clearMessage={() => setPopupMsg('')} />}
       </div>
+    </div>
+  );
+}
+
+function Popup({ message, clearMessage }) {
+  return (
+    <div className="popup">
+      <p>{message}</p>
+      <button onClick={clearMessage}>Close</button>
     </div>
   );
 }
