@@ -11,10 +11,11 @@ import Editpost from './Components/Editpost';
 import Addpost from './Components/Addpost';
 import Logoutpage from './Components/LogoutPage';
 import Footer from './Components/Footer';
+import { AuthProvider } from "./contexts/authContext";
 
 function App() {
   return (
-     <>
+     <AuthProvider>
       <Navbar/>
         <Routes> 
           <Route path="/" element={<Homepage />} />
@@ -28,10 +29,7 @@ function App() {
            <Route path='/logout' element={<Logoutpage/>}/>
          </Routes>
         <Footer/>
-       
-    
-
-        </>
+        </AuthProvider>
   );
 }
 

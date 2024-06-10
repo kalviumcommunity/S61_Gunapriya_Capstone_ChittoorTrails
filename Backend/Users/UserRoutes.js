@@ -1,15 +1,20 @@
 const express = require('express');
 const Joi = require('joi');
-const User = require('../Users/UserSchema');
+const User = require('../Users/UserSchema'); 
+const bcrypt = require('bcryptjs');
 const UserRoute = express.Router();
 
 UserRoute.use(express.json());
 
-// Joi schema for user creation
 const createUserSchema = Joi.object({
     username: Joi.string().required(),
     email: Joi.string().email().required(),
-    password: Joi.string().required()
+    password: Joi.string().min(4).required()
+});
+
+const signinSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(4).required()
 });
 
 UserRoute.get('/get', async (req, res) => {
@@ -23,7 +28,6 @@ UserRoute.get('/get', async (req, res) => {
 });
 
 UserRoute.post('/create', async (req, res) => {
-    // Validate request body using Joi schema
     const { error } = createUserSchema.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -37,6 +41,31 @@ UserRoute.post('/create', async (req, res) => {
             console.error("Error creating user", error);
             res.status(500).json({ error: "Internal server error" });
         }
+    }
+});
+
+UserRoute.post('/signin', async (req, res) => {
+    try {
+        const { error } = signinSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
+
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        
+        const isPasswordMatch = await user.matchPassword(password);
+        if (!isPasswordMatch) {
+            return res.status(401).json({ message: "Invalid credentials" });
+        }
+        
+        res.status(200).json({ message: "Login successful" });
+    } catch (error) {
+        console.error("Error during sign-in:", error);
+        res.status(400).json({ message: error.message });
     }
 });
 

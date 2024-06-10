@@ -104,3 +104,68 @@ body {
   text-decoration: underline;
 }
 
+/* Additional CSS styles for Signin.jsx */
+
+/* Error and Success Messages */
+.error-message,
+.success-message {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+}
+.error-message {
+  background-color: #ff6347; /* Red background for error messages */
+}
+.success-message {
+  background-color: #32cd32; /* Green background for success messages */
+}
+
+/* Logout Button */
+.logout-button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.logout-button:hover {
+  background-color: #ff4500;
+}
+
+.login-button-google {
+  margin-top: 10px; /* Add margin to the top */
+  padding: 10px;
+  background-color: #4285f4; /* Google Blue */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.login-button-google:hover {
+  background-color: #357ae8; /* Darker shade of Google Blue */
+}
+
+/* Create Account Button */
+.create-account-button {
+  margin-top: 10px; /* Add margin to the top */
+  margin-right: 80px;
+  padding: 10px;
+  background-color: #007bff; /* Bootstrap Primary Blue */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.create-account-button:hover {
+  background-color: #0056b3;
+}
