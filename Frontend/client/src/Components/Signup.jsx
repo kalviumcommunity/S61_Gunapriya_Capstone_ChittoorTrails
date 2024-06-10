@@ -2,28 +2,46 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Signup.css';
+import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); 
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const handleSignup = async (e) => {
+    e.preventDefault();
     try {
-      // Send user data to server for registration
-      const response = await axios.post('http://localhost:4001/users/create', {
-        username,
-        email,
-        password
-      });
-      console.log('Response:', response.data);
-      navigate('/main'); // Redirect to the main page upon successful registration
+        // Create user in Firebase Authentication
+        const userCredential = await doCreateUserWithEmailAndPassword(email, password);
+        const firebaseUser = userCredential.user;
+
+        // Create user in your backend
+        const response = await axios.post('http://localhost:4001/users/create', {
+            username,
+            email,
+            password
+        });
+
+        console.log("Backend response:", response.data);
+        setErrorMessage('');
+        setSuccessMessage('User created successfully!');
+        toast.success('User created successfully!');
+
+        // Navigate to the sign-in page after successful signup
+        setTimeout(() => {
+          navigate('/main');
+        }, 2000); // Delay to allow the toast to be displayed
     } catch (error) {
-      console.error('Error:', error.response.data);
-      alert(error.response.data);
+        console.error('Error signing up:', error);
+        setErrorMessage(error.response?.data?.message || 'Error signing up');
+        setSuccessMessage('');
+        toast.error('Error signing up: ' + (error.response?.data?.message || 'Error signing up'));
     }
   };
 
@@ -35,8 +53,10 @@ export default function Signup() {
             <img className="signup-image" src="../assets/Sinupimage.png" alt="Sign Up" />
           </div>
           <div className="signup-form-container">
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {successMessage && <p className="success-message">{successMessage}</p>}
             <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSignup}>
               <div className="signup-form-group">
                 <label>Username:</label>
                 <input
@@ -70,6 +90,7 @@ export default function Signup() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
