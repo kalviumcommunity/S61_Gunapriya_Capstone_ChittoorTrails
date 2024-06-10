@@ -23,6 +23,20 @@ export default function AddPostPage() {
       [name]: value
     }));
   };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    
+    reader.onload = (event) => {
+      setFormData(prevState => ({
+        ...prevState,
+        imageUrl: event.target.result
+      }));
+    };
+  
+    reader.readAsDataURL(file);
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +61,7 @@ export default function AddPostPage() {
           imageUrl: '',
           openingHours: ''
         });
+        
 
         // Set success message
         setPopupMsg('Post added successfully');
@@ -65,6 +80,9 @@ export default function AddPostPage() {
       // Set error message
       setPopupMsg('Error adding post');
     }
+  };
+  const handleButtonClick = () => {
+    document.getElementById('fileInput').click();
   };
 
   return (
@@ -127,6 +145,26 @@ export default function AddPostPage() {
             placeholder="Image URL"
             className="form-input"
           />
+           <input
+            type="file"
+            id="fileInput"
+            name="imageFile"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="form-image-input"
+            style={{ display: 'none' }}
+          />
+          <button type="button" className="upload-button" onClick={handleButtonClick}>Upload Image</button>
+          <label className="form-image-label">
+            <input
+              type="file"
+              name="imageFile"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="form-image-input"
+            />
+            Upload Image
+          </label>
           <input
             type="text"
             name="openingHours"
