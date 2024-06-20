@@ -29,6 +29,10 @@ const placeSchema = new mongoose.Schema({
     openingHours: {
         type: String,
         required: true
+    },
+    email:{
+        type: String,
+        required:true
     }
 });
 

@@ -1,31 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Import js-cookie library
-import './Signup.css';
-import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
+import Cookies from 'js-cookie'; 
+import "./Signup.css"
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 
-export default function Signup() {
+const Signup = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState(''); 
+    const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
 
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            // Create user in Firebase Authentication
             const userCredential = await doCreateUserWithEmailAndPassword(email, password);
             const firebaseUser = userCredential.user;
-
-            // Get the token from local storage
+            Cookies.set('email', email);
+            Cookies.set('userId', firebaseUser.uid);
             const token = localStorage.getItem('token');
-
-            // Create user in your backend with the token in the headers
             const response = await axios.post('http://localhost:4001/users/create', {
                 username,
                 email,
@@ -36,18 +33,13 @@ export default function Signup() {
                 }
             });
 
-            // Store token in a cookie
-            Cookies.set('token', token);
-
             console.log("Backend response:", response.data);
             setErrorMessage('');
             setSuccessMessage('User created successfully!');
             toast.success('User created successfully!');
-
-            // Navigate to the sign-in page after successful signup
             setTimeout(() => {
                 navigate('/main');
-            }, 2000); // Delay to allow the toast to be displayed
+            }, 2000);
         } catch (error) {
             console.error('Error signing up:', error);
             setErrorMessage(error.response?.data?.message || 'Error signing up');
@@ -61,7 +53,7 @@ export default function Signup() {
             <div className="signup-main">
                 <div className="signup-container">
                     <div className="signup-image-container">
-                        <img className="signup-image" src="../assets/Sinupimage.png" alt="Sign Up" />
+                        <img className="signup-image" src="../assets/Signupimage.png" alt="Sign Up" />
                     </div>
                     <div className="signup-form-container">
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -104,4 +96,6 @@ export default function Signup() {
             <ToastContainer />
         </div>
     );
-}
+};
+
+export default Signup;
