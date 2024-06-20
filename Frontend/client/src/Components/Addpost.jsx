@@ -13,7 +13,8 @@ export default function AddPostPage() {
     type: '',
     ratings: '',
     imageUrl: '',
-    openingHours: ''
+    openingHours: '',
+    email: '' // Adding email to form data state
   });
 
   const handleChange = (e) => {
@@ -23,6 +24,7 @@ export default function AddPostPage() {
       [name]: value
     }));
   };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -36,7 +38,6 @@ export default function AddPostPage() {
   
     reader.readAsDataURL(file);
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,9 +60,9 @@ export default function AddPostPage() {
           type: '',
           ratings: '',
           imageUrl: '',
-          openingHours: ''
+          openingHours: '',
+          email: '' // Clearing email field
         });
-        
 
         // Set success message
         setPopupMsg('Post added successfully');
@@ -81,6 +82,7 @@ export default function AddPostPage() {
       setPopupMsg('Error adding post');
     }
   };
+
   const handleButtonClick = () => {
     document.getElementById('fileInput').click();
   };
@@ -145,26 +147,14 @@ export default function AddPostPage() {
             placeholder="Image URL"
             className="form-input"
           />
-           <input
-            type="file"
-            id="fileInput"
-            name="imageFile"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="form-image-input"
-            style={{ display: 'none' }}
+          <input
+            type="email" // Change to type email for email input
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email" // Placeholder for email input
+            className="form-input"
           />
-          <button type="button" className="upload-button" onClick={handleButtonClick}>Upload Image</button>
-          <label className="form-image-label">
-            <input
-              type="file"
-              name="imageFile"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="form-image-input"
-            />
-            Upload Image
-          </label>
           <input
             type="text"
             name="openingHours"
