@@ -10,6 +10,8 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie';
+
 
 export default function Signin() {
   const { userLoggedIn, setUserLogIn } = useAuth();
@@ -32,12 +34,19 @@ export default function Signin() {
                 email,
                 password
             });
-            console.log("Server response:", response.data);
-            setErrorMessage(''); // Clear the error message on successful login
-            setSuccessMessage('Login successful!');
-            setUserLogIn(true);
-            toast.success('Login successful!');
-            navigate('/main');
+            if(response.status === 200 && response.data.token) {
+              const { token } = response.data;
+              Cookies.set('token', token, { expires: 7 }); 
+              setErrorMessage(''); 
+              setSuccessMessage('Login successful!');
+              setUserLogIn(true);
+              toast.success('Login successful!');
+              navigate('/main');
+          }else {
+            setErrorMessage('Token not received from server');
+            setSuccessMessage('');
+            toast.error('Token not received from server');
+        }
         } catch (error) {
             console.error('Error logging in:', error);
             console.log('Error response:', error.response);
