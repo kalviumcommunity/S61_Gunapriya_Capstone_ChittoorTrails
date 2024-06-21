@@ -23,6 +23,9 @@ export default function Signup() {
             username,
             email,
             password
+        }, {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true, // Include credentials
         });
 
         console.log("Backend response:", response.data);
