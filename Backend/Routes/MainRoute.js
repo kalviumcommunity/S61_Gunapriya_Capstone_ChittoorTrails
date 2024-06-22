@@ -1,13 +1,15 @@
 const express = require('express');
 const { Place } = require('./Schema');
 const placeRoute = express.Router();
-
+const User = require('../Users/UserSchema');
+const jwt = require('jsonwebtoken');
+const authenticateUser = require('../Routes/authMiddleware');
+require('dotenv').config();
 placeRoute.use(express.json());
 
-// Get all places
-placeRoute.get('/read', async (req, res) => {
+placeRoute.get('/read',authenticateUser ,async (req, res) => {
     try {
-        const data = await Place.find();
+        const data = await Place.find({users:req.user.id});
         res.status(200).send({ msg: "Data received", data });
     } catch (error) {
         console.error("Error fetching place data", error);
@@ -15,10 +17,23 @@ placeRoute.get('/read', async (req, res) => {
     }
 });
 
-// Create a new place
-placeRoute.post('/create', async (req, res) => {
+placeRoute.post('/create', authenticateUser, async (req, res) => {
     try {
-        const newPlaceData = await Place.create(req.body);
+        console.log('RequestBody',req.body);
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(401).send({ message: "User not found" });
+        }
+
+        // const newPlaceData = await Place.create(req.body);
+        const newPlaceData=new Place({
+            ...req.body,
+            users:user._id
+        })
+        await newPlaceData.save();
+        user.places.push(newPlaceData._id); 
+        await user.save();
+
         res.status(201).json({ message: "Place data created successfully", newPlaceData });
     } catch (error) {
         if (error.name === 'ValidationError') {
@@ -31,7 +46,7 @@ placeRoute.post('/create', async (req, res) => {
 });
 
 // Delete a place
-placeRoute.delete('/delete/:id', async (req, res) => {
+placeRoute.delete('/delete/:id',authenticateUser ,async (req, res) => {
     try {
         const deletedPlace = await Place.findByIdAndDelete(req.params.id);
         if (!deletedPlace) {
@@ -45,7 +60,7 @@ placeRoute.delete('/delete/:id', async (req, res) => {
 });
 
 // Update a place
-placeRoute.put('/update/:id', async (req, res) => {
+placeRoute.put('/update/:id', authenticateUser, async (req, res) => {
     try {
         const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedPlace) {

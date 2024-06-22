@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import './Addpost.css';
 import { useNavigate } from 'react-router-dom';
+
 
 export default function AddPostPage() {
   const navigate = useNavigate();
   const [popupMsg, setPopupMsg] = useState('');
+  const [token, setToken] = useState(''); 
 
   const [formData, setFormData] = useState({
     name: '',
@@ -13,9 +15,15 @@ export default function AddPostPage() {
     type: '',
     ratings: '',
     imageUrl: '',
-    openingHours: '',
-    email: '' // Adding email to form data state
+    openingHours: ''
   });
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +32,6 @@ export default function AddPostPage() {
       [name]: value
     }));
   };
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -38,21 +45,30 @@ export default function AddPostPage() {
   
     reader.readAsDataURL(file);
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("submitting form data",formData);
     try {
+      const storedToken = localStorage.getItem('token');
+      console.log(storedToken);
+      if (!storedToken) {
+        throw new Error('No token available');
+      }
+  
       const response = await fetch('http://localhost:4001/api/create', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${storedToken}`  
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({...formData,users:token})
       });
-
+  
+      console.log(response);
       if (response.ok) {
-        // Reset form data after successful submission
+        // Reset form and show success message
         setFormData({
           name: '',
           location: '',
@@ -60,28 +76,28 @@ export default function AddPostPage() {
           type: '',
           ratings: '',
           imageUrl: '',
-          openingHours: '',
-          email: '' // Clearing email field
+          openingHours: ''
         });
-
-        // Set success message
         setPopupMsg('Post added successfully');
-
-        // Navigate to main page after 2 seconds
+  
+        // Navigate after a delay
         setTimeout(() => {
           navigate('/profile');
         }, 2000);
       } else {
-        console.error('Failed to add post:', response.statusText);
-        // Set error message
-        setPopupMsg('Failed to add post');
+        // Handle error response
+        const errorData=await response.json();
+        console.error('Failed to add post:', errorData);
+        setPopupMsg('Failed to add post'+errorData.message);
       }
     } catch (error) {
       console.error('Error adding post:', error.message);
-      // Set error message
-      setPopupMsg('Error adding post');
+      setPopupMsg('Error adding post'+error.message);
     }
   };
+  
+
+
 
   const handleButtonClick = () => {
     document.getElementById('fileInput').click();
@@ -147,14 +163,26 @@ export default function AddPostPage() {
             placeholder="Image URL"
             className="form-input"
           />
-          <input
-            type="email" // Change to type email for email input
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email" // Placeholder for email input
-            className="form-input"
+           <input
+            type="file"
+            id="fileInput"
+            name="imageFile"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="form-image-input"
+            style={{ display: 'none' }}
           />
+          <button type="button" className="upload-button" onClick={handleButtonClick}>Upload Image</button>
+          <label className="form-image-label">
+            <input
+              type="file"
+              name="imageFile"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="form-image-input"
+            />
+            Upload Image
+          </label>
           <input
             type="text"
             name="openingHours"

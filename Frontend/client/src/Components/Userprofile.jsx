@@ -9,22 +9,33 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:4001/api/read')
-      .then(response => {
-        console.log(response.data);
-        setPlaces(response.data.data);
+    const storedToken = localStorage.getItem('token');
+    if (!storedToken) {
+      navigate('/signin');  // Redirect to signin if no token is found
+    } else {
+      axios.get('http://localhost:4001/api/read', {
+        headers: { 'Authorization': `Bearer ${storedToken}` }
       })
-      .catch(error => {
-        console.error('Error fetching places:', error);
-      });
-  }, []);
+        .then(response => {
+          console.log(response.data);
+          setPlaces(response.data.data);
+        })
+        .catch(error => {
+          console.error('Error fetching places:', error);
+        });
+    }
+  }, [navigate]);
+
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
   };
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:4001/api/delete/${id}`)
+    const storedToken = localStorage.getItem('token');
+    axios.delete(`http://localhost:4001/api/delete/${id}`, {
+      headers: { 'Authorization': `Bearer ${storedToken}` }
+    })
       .then(response => {
         console.log('Place deleted:', response.data);
         setPlaces(places.filter(place => place._id !== id));
@@ -33,10 +44,13 @@ export default function ProfilePage() {
         console.error('Error deleting place:', error);
       });
   };
+  
 
   const handleEdit = (place) => {
     navigate('/editpost', { state: { place } });
   };
+  
+  
 
   return (
     <div className='profile_main_container'>

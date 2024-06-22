@@ -4,6 +4,7 @@ const User = require("./UserSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const authenticateUser = require('../Routes/authMiddleware');
 require("dotenv").config();
 
 const UserRoute = express.Router();
@@ -19,6 +20,15 @@ const createUserSchema = Joi.object({
 const signinSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(4).required(),
+});
+
+UserRoute.get('/profile', authenticateUser, async (req, res) => {
+    try {
+        const userdata = await User.findById(req.user.id).populate('places');
+        res.status(200).send(userdata);
+    } catch (error) {
+        res.send({ error });
+    }
 });
 
 UserRoute.post("/create", async (req, res) => {
@@ -64,13 +74,6 @@ UserRoute.post("/create", async (req, res) => {
   }
 });
 
-
-
-
-
-
-
-
 UserRoute.post('/signin', async (req, res) => {
     const { email, password } = req.body;
   
@@ -107,11 +110,8 @@ UserRoute.post('/signin', async (req, res) => {
       res.status(500).json({ message: 'Server Error' });
     }
   });
-  
-  
 
-
-UserRoute.put("/update/:id", async (req, res) => {
+UserRoute.put("/update/:id", authenticateUser, async (req, res) => {
   const userId = req.params.id;
   const { username, email, password } = req.body;
   try {
