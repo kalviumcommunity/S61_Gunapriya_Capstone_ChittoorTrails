@@ -30,12 +30,13 @@ const placeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    email:{
-        type: String,
-        required:true
+    users: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
     }
 });
 
 const Place = mongoose.model('Place', placeSchema);
 
-module.exports = {Place};
+module.exports = { Place };

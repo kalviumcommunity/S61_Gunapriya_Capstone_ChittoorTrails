@@ -23,20 +23,16 @@ export default function Signup() {
             username,
             email,
             password
-        }, {
-            headers: { 'Content-Type': 'application/json' },
-            withCredentials: true, // Include credentials
         });
 
         console.log("Backend response:", response.data);
+        localStorage.setItem("token",response.data.token)
         setErrorMessage('');
         setSuccessMessage('User created successfully!');
         toast.success('User created successfully!');
-
-        // Navigate to the sign-in page after successful signup
         setTimeout(() => {
           navigate('/main');
-        }, 2000); // Delay to allow the toast to be displayed
+        }, 2000);
     } catch (error) {
         console.error('Error signing up:', error);
         setErrorMessage(error.response?.data?.message || 'Error signing up');

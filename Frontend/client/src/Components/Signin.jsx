@@ -34,6 +34,7 @@ export default function Signin() {
         });
 
         console.log('Server response:', response.data);
+        localStorage.setItem('token',response.data.token);
 
         if (response.status === 200 && response.data.token) {
           const { token } = response.data;

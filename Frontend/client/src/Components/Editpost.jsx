@@ -42,7 +42,10 @@ export default function EditPostPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:4001/api/update/${place._id}`, formData)
+    const storedToken = localStorage.getItem('token');
+    axios.put(`http://localhost:4001/api/update/${place._id}`, formData, {
+      headers: { 'Authorization': `Bearer ${storedToken}` }
+    })
       .then(response => {
         console.log('Place updated:', response.data);
         navigate('/profile');
@@ -51,6 +54,7 @@ export default function EditPostPage() {
         console.error('Error updating place:', error);
       });
   };
+  
 
   return (
     <div className="edit-post-container">
