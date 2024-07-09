@@ -7,9 +7,10 @@ import axios from 'axios';
 
 export default function Homepage() {
     const [places, setPlaces] = useState([]);
+    const [selectedPlace, setSelectedPlace] = useState(null);
 
     useEffect(() => {
-      axios.get('http://localhost:4001/api/read')
+      axios.get('http://localhost:4001/api/allpost')
         .then(response => {
           console.log(response.data);
           setPlaces(response.data.data);
@@ -18,6 +19,15 @@ export default function Homepage() {
           console.error('Error fetching places:', error);
         });
     }, []);
+
+    const openModal = (place) => {
+      setSelectedPlace(place);
+  };
+
+  const closeModal = () => {
+      setSelectedPlace(null);
+  };
+
   return (
     <>
          <div className='main_hOME'>
@@ -35,19 +45,33 @@ export default function Homepage() {
       </div>
       <div>
       <h1>All Places</h1>
-      <ul>
-        {places.map(place => (
-          <div key={place._id} className="place-info">
-            <h2>{place.name}</h2>
-            <p>Location: {place.location}</p>
-            <p>Description: {place.description}</p>
-            <p>Type: {place.type}</p>
-            <p>Ratings: {place.ratings}</p>
-            <img src={place.imageUrl} alt={place.name} className="place-image" />
-            <p>Opening Hours: {place.openingHours}</p>
-          </div>
-        ))}
-       </ul>
+      <div className='places-container'>
+                    {places.map(place => (
+                        <div
+                            key={place._id}
+                            className="place-card"
+                            onClick={() => openModal(place)}
+                        >
+                            <img src={place.imageUrl} alt={place.name} className="place-image" />
+                            <h2>{place.name}</h2>
+                        </div>
+                    ))}
+                </div>
+      
+            {selectedPlace && (
+                <div className="modal" style={{ display: 'block' }}>
+                    <div className="modal-content">
+                        <span className="close" onClick={closeModal}>&times;</span>
+                        <h2>{selectedPlace.name}</h2>
+                        <img src={selectedPlace.imageUrl} alt={selectedPlace.name} className="place-image" />
+                        <p>Location: {selectedPlace.location}</p>
+                        <p>Description: {selectedPlace.description}</p>
+                        <p>Type: {selectedPlace.type}</p>
+                        <p>Ratings: {selectedPlace.ratings}</p>
+                        <p>Opening Hours: {selectedPlace.openingHours}</p>
+                    </div>
+                </div>
+            )}
       </div>
     </>
   );

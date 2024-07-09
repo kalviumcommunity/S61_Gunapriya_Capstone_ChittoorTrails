@@ -11,7 +11,7 @@ export default function MainPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:4001/api/read')
+    axios.get('http://localhost:4001/api/allpost')
       .then(response => {
         setPlaces(response.data.data);
         setFilteredPlaces(response.data.data);

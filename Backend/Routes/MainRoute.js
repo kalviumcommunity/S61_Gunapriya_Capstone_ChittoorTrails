@@ -7,6 +7,16 @@ const authenticateUser = require('../Routes/authMiddleware');
 require('dotenv').config();
 placeRoute.use(express.json());
 
+placeRoute.get('/allpost', async (req, res) => {
+    try {
+        const data = await Place.find();
+        res.status(200).send({ msg: "Data received", data });
+    } catch (error) {
+        console.error("Error fetching place data", error);
+        res.status(500).json({ errMsg: "Invalid get request", error });
+    }
+});
+
 placeRoute.get('/read',authenticateUser ,async (req, res) => {
     try {
         const data = await Place.find({users:req.user.id});
