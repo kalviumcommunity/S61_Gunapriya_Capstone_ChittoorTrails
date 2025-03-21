@@ -33,6 +33,6 @@ Chittoor Trails is more than just an app - it's a gateway to the heart and soul 
 
 ## Links:
 
-### Backend Deployedlink (https://s61-gunapriya-capstone-chittoortrails.onrender.com/)
+### Backend Deployedlink ([https://s61-gunapriya-capstone-chittoortrails.onrender.com/](https://capstone-chittoortrails.onrender.com))
 
 ### Frontend Deployedlink (https://classy-llama-c118f5.netlify.app/)
