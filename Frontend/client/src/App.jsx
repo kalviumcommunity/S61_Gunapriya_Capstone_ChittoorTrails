@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route,Router } from 'react-router-dom';
-import Navbar from './Components/NavBar';
+// import Navbar from './Components/NavBar';
 import About from './Components/About';
 import Signin from './Components/Signin';
 import Homepage from './Components/Homepage';
@@ -10,13 +10,12 @@ import Userprofile from './Components/Userprofile';
 import Editpost from './Components/Editpost';
 import Addpost from './Components/Addpost';
 import Logoutpage from './Components/LogoutPage';
-import Footer from './Components/Footer';
+// import Footer from './Components/Footer';
 import { AuthProvider } from "./contexts/authContext";
 
 function App() {
   return (
      <AuthProvider>
-      <Navbar/>
         <Routes> 
           <Route path="/" element={<Homepage />} />
           <Route path="/about" element={<About />} />
@@ -28,8 +27,8 @@ function App() {
            <Route path="/addpost" element={<Addpost />} />
            <Route path='/logout' element={<Logoutpage/>}/>
          </Routes>
-        <Footer/>
         </AuthProvider>
+    // <Homepage/>
   );
 }
 
