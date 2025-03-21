@@ -540,7 +540,7 @@ const Homepage = () => {
                   <CardMedia
                     component="img"
                     height="200"
-                    image={`../src/assets/chandragiri.jpeg`}
+                    image={`../public/assets/chandragiri.jpeg`}
                     alt={destination.title}
                   />
                   <CardContent>
