@@ -43,7 +43,7 @@ export default function EditPostPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const storedToken = localStorage.getItem('token');
-    axios.put(`http://localhost:4001/api/update/${place._id}`, formData, {
+    axios.put(`https://capstone-chittoortrails.onrender.com/api/update/${place._id}`, formData, {
       headers: { 'Authorization': `Bearer ${storedToken}` }
     })
       .then(response => {

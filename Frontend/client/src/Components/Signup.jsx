@@ -19,7 +19,7 @@ export default function Signup() {
     try {
         const userCredential = await doCreateUserWithEmailAndPassword(email, password);
         const firebaseUser = userCredential.user;
-        const response = await axios.post('http://localhost:4001/users/create', {
+        const response = await axios.post('https://capstone-chittoortrails.onrender.com/users/create', {
             username,
             email,
             password

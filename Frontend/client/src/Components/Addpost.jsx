@@ -57,7 +57,7 @@ export default function AddPostPage() {
         throw new Error('No token available');
       }
   
-      const response = await fetch('http://localhost:4001/api/create', {
+      const response = await fetch('https://capstone-chittoortrails.onrender.com/api/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

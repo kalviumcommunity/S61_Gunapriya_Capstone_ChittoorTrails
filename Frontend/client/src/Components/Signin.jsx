@@ -25,7 +25,7 @@ export default function Signin() {
         console.log("Attempting to sign in with email and password...");
         console.log("Email:", email, "Password:", password); 
 
-        const response = await axios.post('http://localhost:4001/users/signin', {
+        const response = await axios.post('https://capstone-chittoortrails.onrender.com/users/signin', {
           email,
           password
         }, {

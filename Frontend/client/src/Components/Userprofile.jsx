@@ -13,7 +13,7 @@ export default function ProfilePage() {
     if (!storedToken) {
       navigate('/signin');  // Redirect to signin if no token is found
     } else {
-      axios.get('http://localhost:4001/api/read', {
+      axios.get('https://capstone-chittoortrails.onrender.com/api/read', {
         headers: { 'Authorization': `Bearer ${storedToken}` }
       })
         .then(response => {
@@ -33,7 +33,7 @@ export default function ProfilePage() {
 
   const handleDelete = (id) => {
     const storedToken = localStorage.getItem('token');
-    axios.delete(`http://localhost:4001/api/delete/${id}`, {
+    axios.delete(`https://capstone-chittoortrails.onrender.com/api/delete/${id}`, {
       headers: { 'Authorization': `Bearer ${storedToken}` }
     })
       .then(response => {
